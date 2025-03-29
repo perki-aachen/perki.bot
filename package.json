@@ -1,5 +1,5 @@
 {
-  "name": "perki.bot",
+  "name": "@perki/bot",
   "version": "0.0.1",
   "type": "commonjs",
   "scripts": {
