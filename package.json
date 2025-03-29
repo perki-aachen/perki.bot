@@ -2,7 +2,8 @@
   "name": "perki.bot",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc && tsc-alias"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
@@ -28,6 +29,7 @@
     "@types/node": "^20.11.17",
     "@types/node-schedule": "^2.1.7",
     "@types/react": "^19.0.8",
+    "tsc-alias": "^1.8.12",
     "tsx": "^4.7.1"
   }
 }
