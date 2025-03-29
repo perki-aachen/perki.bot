@@ -1,0 +1,30 @@
+{
+  "name": "perki.bot",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "@hono/react-renderer": "^0.2.1",
+    "@tailwindcss/cli": "^4.0.0",
+    "@tanstack/react-query": "^5.65.1",
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.41.0",
+    "hono": "^4.6.19",
+    "honox": "^0.1.33",
+    "node-schedule": "^2.1.1",
+    "postgres": "^3.4.5",
+    "react": "^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "winston": "^3.17.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@types/node-schedule": "^2.1.7",
+    "@types/react": "^19.0.8",
+    "tsx": "^4.7.1"
+  }
+}
