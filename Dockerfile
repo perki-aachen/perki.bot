@@ -1,27 +1,41 @@
-FROM node:20-alpine AS base
+# syntax = docker/dockerfile:1
 
-FROM base AS builder
+# Adjust NODE_VERSION as desired
+ARG NODE_VERSION=20.10.0
+FROM node:${NODE_VERSION}-slim AS base
 
-RUN apk add --no-cache gcompat
+LABEL fly_launch_runtime="Node.js"
+
+# Node.js app lives here
 WORKDIR /app
 
-COPY package*json tsconfig.json src ./
+# Set production environment
+ENV NODE_ENV="production"
 
-RUN npm ci && \
-    npm run build && \
-    npm prune --production
+# Install pnpm
+ARG PNPM_VERSION=10.5.2
+RUN npm install -g pnpm@$PNPM_VERSION
 
-FROM base AS runner
-WORKDIR /app
+# Throw-away build stage to reduce size of final image
+FROM base AS build
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 hono
+# Install packages needed to build node modules
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
-COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
-COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
-COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
+# Install node modules
+COPY package.json pnpm-lock.yaml yarn.lock ./
+RUN pnpm install --frozen-lockfile
 
-USER hono
+# Copy application code
+COPY . .
+
+# Final stage for app image
+FROM base
+
+# Copy built application
+COPY --from=build /app /app
+
+# Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-
-CMD ["node", "/app/dist/index.js"]
+CMD [ "node", "index.js" ]
