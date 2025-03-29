@@ -1,4 +1,5 @@
 import { serve } from "@hono/node-server";
+import figlet from "figlet";
 import { Hono } from "hono";
 import schedule from "node-schedule";
 import { db } from "./db";
@@ -9,10 +10,7 @@ const app = new Hono();
 const reminder = Reminder.getInstance();
 
 app.get("/", (c) => {
-  return c.json({
-    date: new Date().toISOString(),
-    message: "Welcome to perki aachen birthday bot!",
-  });
+  return c.text(figlet.textSync("perki.bot"));
 });
 
 app.get("/profiles", async (c) => {
