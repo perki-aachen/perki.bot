@@ -1,8 +1,10 @@
 {
   "name": "perki.bot",
-  "type": "module",
+  "version": "0.0.1",
+  "type": "commonjs",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "start": "node dist/src/index.js",
     "build": "tsc && tsc-alias"
   },
   "dependencies": {
@@ -30,6 +32,7 @@
     "@types/node-schedule": "^2.1.7",
     "@types/react": "^19.0.8",
     "tsc-alias": "^1.8.12",
-    "tsx": "^4.7.1"
+    "tsx": "^4.7.1",
+    "typescript": "^5.8.2"
   }
 }
